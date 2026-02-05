@@ -1,0 +1,43 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<h2>Сите анкети</h2>
+
+{% if anketi %}
+    <ul class="anketi-lista">
+        {% for anketa in anketi %}
+            <li>
+                <div class="detali">
+                    <strong>{{ anketa.prasanje }}</strong><br>
+                    {% if anketa.rok %}
+                        Рок: {{ anketa.rok.strftime("%d.%m.%Y") }}
+                    {% else %}
+                        Без рок
+                    {% endif %}
+                <br>
+                <button><a href="{{ url_for('anketa_detali', anketa_id=anketa.id) }}">Прегледај</a></button>
+                </div>
+                <div class="detali">
+                    {% if anketa.rok == None or anketa.rok == anketa.created_at or anketa.rok > anketa.created_at %}
+                        <p>Активна</p>
+                    {% else %}
+                        <p>Затворена</p>
+                    {% endif %}
+                </div>
+            </li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>Нема креирани анкети.</p>
+{% endif %}
+
+{% endblock %}
+
+
+
+
+
+
+
+
+

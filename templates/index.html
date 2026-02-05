@@ -1,0 +1,11 @@
+{% block content %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+<div class="index">
+    <h1>Crowd Opinion Snapshot</h1>
+    <p>Веб апликација за креирање анкети и собирање гласови од корисници.
+    Корисникот креира анкета со прашање и неколку опции, другите гласаат, а апликацијата прикажува резултати.
+    AI се користи за да направи краток summary/резиме на резултатите и да даде интересен увид</p><br>
+    <button><a class="btn" href="{{ url_for('sozdava_anketa') }}">Додај нова анкета</a></button>
+    <button><a class="btn" href="{{ url_for('lista_anketi') }}">Прегледај Анкети</a></button>
+</div>
+{% endblock %}

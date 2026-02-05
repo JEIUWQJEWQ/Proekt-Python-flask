@@ -1,0 +1,22 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<h1>Nova anketa</h1>
+
+<form method="POST" class="form">
+    <label>Prasanje:</label><br>
+    <input type="text" name="prasanje" required><br>
+
+    <label>Opcii (najmalku 2)</label><br>
+    <input type="text" name="opcii" required><br>
+    <input type="text" name="opcii"><br>
+    <input type="text" name="opcii"><br>
+    <input type="text" name="opcii"><br><br>
+
+    <label>Rok (opcionalno)</label><br>
+    <input type="date" name="rok"><br><br>
+
+    <button type="submit">Zacuvaj Anketa</button>
+</form>
+
+{% endblock %}

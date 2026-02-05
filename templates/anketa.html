@@ -1,0 +1,57 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<h2>{{ anketa.prasanje }}</h2>
+
+{% if anketa.rok == None or anketa.rok == anketa.created_at or anketa.rok > anketa.created_at %}
+    <form method="POST">
+        {% if anketa.opcii %}
+            {% for opcija in anketa.opcii %}
+                {% if opcija.tekst != "" %}
+                    <input type="radio" name="opcija" value="{{ opcija.id }}">{{ opcija.tekst }}<br><br>
+                {% endif %}
+            {% endfor %}
+        {% else %}
+            <p>Анкетата нема опции</p>
+        {% endif %}
+        <br>
+        <button type="submit">Гласај</button>
+    </form>
+{% else %}
+<p>Анкетата е затворена.</p>
+{% endif %}
+
+<hr>
+
+<h3>Резултати</h3>
+
+{% for opcija in anketa.opcii %}
+    {% if opcija.tekst != "" %}
+        <p>
+            {{ opcija.text }} –
+            {{ opcija.glasovi|length }} гласови
+            {% if vkupno_glasovi > 0 %}
+                ({{ (opcija.glasovi|length / vkupno_glasovi * 100) | round(2) }}%)
+            {% endif %}
+        </p>
+    {% endif %}
+{% endfor %}
+
+
+
+
+<hr>
+
+<form method="POST" action="{{ url_for('ai_zaklucok', anketa_id=anketa.id) }}">
+    <button type="submit">AI сумирај резултати</button>
+</form>
+
+{% if anketa.ai_zaklucok %}
+    <h3>AI резиме</h3>
+    <p>{{ anketa.ai_zaklucok }}</p>
+{% endif %}
+
+<form method="POST" action="{{ url_for('delete_anketa',anketa_id = anketa.id) }}">
+    <button type="submit">Избриши</button>
+</form>
+{% endblock %}
