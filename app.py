@@ -46,16 +46,19 @@ def anketa_detali(anketa_id):
     anketa = session.query(Anketa).get(anketa_id)
 
     if request.method == "POST":
-        opcija_id = request.form.get("opcija")
+        try:
+            opcija_id = request.form.get("opcija")
 
-        if not opcija_id:
-            flash("Nema opcija")
-            return redirect(url_for("anketa", anketa_id=anketa.id))
+            if not opcija_id:
+                flash("Nema opcija")
+                return redirect(url_for("anketa", anketa_id=anketa.id))
 
-        glas = Glasovi(opcija_id=opcija_id)
-        session.add(glas)
-        session.commit()
-        return redirect(url_for("anketa_detali", anketa_id=anketa.id))
+            glas = Glasovi(opcija_id=opcija_id)
+            session.add(glas)
+            session.commit()
+            return redirect(url_for("anketa_detali", anketa_id=anketa.id))
+        except RuntimeError:
+            return redirect(url_for("anketa_detali", anketa_id=anketa.id))
 
     vkupno_glasovi = sum(len(o.glasovi) for o in anketa.opcii)
 

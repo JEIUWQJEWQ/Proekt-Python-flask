@@ -28,7 +28,7 @@
 {% for opcija in anketa.opcii %}
     {% if opcija.tekst != "" %}
         <p>
-            {{ opcija.text }} –
+            {{ opcija.tekst }} –
             {{ opcija.glasovi|length }} гласови
             {% if vkupno_glasovi > 0 %}
                 ({{ (opcija.glasovi|length / vkupno_glasovi * 100) | round(2) }}%)
