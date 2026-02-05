@@ -3,6 +3,8 @@ from datetime import datetime
 
 from database import session
 from models import Anketa, Opcii, Glasovi
+from services.ai_service import generate_summary
+
 # from services.ai_service import generate_summary
 
 app = Flask(__name__)
@@ -83,7 +85,9 @@ def ai_zaklucok(anketa_id):
             "procent": f"{round(procent, 2)}%",
         })
 
-    # anketa.ai_zaklucok = generate_summary(anketa.prasanje,rezultati)
+    ai_zak = generate_summary(anketa.prasanje,rezultati)
+    print(ai_zak)
+    anketa.ai_zaklucok = ai_zak
     session.commit()
     return redirect(url_for("anketa_detali", anketa_id=anketa.id))
 
