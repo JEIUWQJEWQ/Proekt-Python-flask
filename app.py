@@ -5,7 +5,7 @@ from database import session
 from models import Anketa, Opcii, Glasovi
 from services.ai_service import generate_summary
 
-# from services.ai_service import generate_summary
+from services.ai_service import generate_summary
 
 app = Flask(__name__)
 
